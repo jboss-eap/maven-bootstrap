@@ -2,6 +2,7 @@ A script to bootstrap Maven environment using zip repositories
 ==============================================================
 
 Usage:
+
 1. Download EAP Repository zip file
 2. Download WFK Repository zip file
 3. Extract both zips
