@@ -14,9 +14,9 @@
 
 	<properties>
 		<eap6.enterprise.repository.zip>${basedir}/jboss-eap-6.0.0.Alpha2-maven-repository.zip</eap6.enterprise.repository.zip>
-		<wfk2.enterprise.repository.zip>${basedir}/jboss-wfk-2.0.0-DR04-repository.zip</wfk2.enterprise.repository.zip>
+		<wfk2.enterprise.repository.zip>${basedir}/jboss-wfk-2.0.0-DR05-repository.zip</wfk2.enterprise.repository.zip>
 		<eap6.enterprise.repository.dir>${basedir}/jboss-eap-6.0.0.Alpha2-maven-repository</eap6.enterprise.repository.dir>
-		<wfk2.enterprise.repository.dir>${basedir}/jboss-wfk-2.0.0-DR04-repository</wfk2.enterprise.repository.dir>
+		<wfk2.enterprise.repository.dir>${basedir}/jboss-wfk-2.0.0-DR05-repository</wfk2.enterprise.repository.dir>
 	</properties>
 
 
