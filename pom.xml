@@ -69,15 +69,15 @@
 							<rules>
 								<requireFilesExist>
 									<files>
-										<file>${eap6.enterprise.repository.zip}</file>
+										<file>${eap6.enterprise.repository.dir}</file>
 									</files>
-									<message>EAP6 Enterprise Repository Zip must exist.</message>
+									<message>EAP6 Enterprise Repository must exist. Please unzip the file first.</message>
 								</requireFilesExist>
 								<requireFilesExist>
 									<files>
-										<file>${wfk2.enterprise.repository.zip}</file>
+										<file>${wfk2.enterprise.repository.dir}</file>
 									</files>
-									<message>WFK2 Enterprise Repository Zip must exist.</message>
+									<message>WFK2 Enterprise Repository must exist. Please unzip the file first</message>
 								</requireFilesExist>
 							</rules>
 						</configuration>
