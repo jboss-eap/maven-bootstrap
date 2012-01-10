@@ -13,10 +13,10 @@
 	<description>Example that demonstrates creation of settings.xml with an activated locally unzipped repositories</description>
 
 	<properties>
-		<eap6.enterprise.repository.zip>${basedir}/jboss-eap-6.0.0.DR8-maven-repository.zip</eap6.enterprise.repository.zip>
-		<wfk2.enterprise.repository.zip>${basedir}/jboss-wfk-2.0.0-DR06-repository.zip</wfk2.enterprise.repository.zip>
-		<eap6.enterprise.repository.dir>${basedir}/jboss-eap-6.0.0.DR8-maven-repository</eap6.enterprise.repository.dir>
-		<wfk2.enterprise.repository.dir>${basedir}/jboss-wfk-2.0.0-DR06-repository</wfk2.enterprise.repository.dir>
+		<eap6.enterprise.repository.zip>${basedir}/jboss-eap-6.0.0.DR9-maven-repository.zip</eap6.enterprise.repository.zip>
+		<wfk2.enterprise.repository.zip>${basedir}/jboss-wfk-2.0.0-DR07-repository.zip</wfk2.enterprise.repository.zip>
+		<eap6.enterprise.repository.dir>${basedir}/jboss-eap-6.0.0.DR9-maven-repository</eap6.enterprise.repository.dir>
+		<wfk2.enterprise.repository.dir>${basedir}/jboss-wfk-2.0.0-DR07-repository</wfk2.enterprise.repository.dir>
 	</properties>
 
 
