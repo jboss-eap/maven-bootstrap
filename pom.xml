@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.jboss.helpers</groupId>
-	<artifactId>settings-xml-creator-example</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+    <groupId>org.jboss.helpers</groupId>
+    <artifactId>settings-xml-creator</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
 
-	<packaging>pom</packaging>
-	<name>Settings.xml Creator from a Template</name>
-	<description>Example that demonstrates creation of settings.xml with an activated locally unzipped repositories</description>
+    <packaging>pom</packaging>
+    <name>Maven settings.xml creator</name>
+    <description>A helper utility which allows you to extract EAP6 and WFK2 Maven repository from zip files and creates a local 
+                 settings.xml files which has these repositories activated.</description>
 
 	<properties>
 		<eap6.enterprise.repository.zip>${basedir}/jboss-eap-6.0.0.DR10-maven-repository.zip</eap6.enterprise.repository.zip>
@@ -19,73 +20,153 @@
 		<wfk2.enterprise.repository.dir>${basedir}/jboss-wfk-2.0.0-DR07-repository</wfk2.enterprise.repository.dir>
 	</properties>
 
+    <dependencies>
+    </dependencies>
 
-	<dependencies>
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.5</version>
-				<executions>
-					<execution>
-						<id>generate-maven-settings</id>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<encoding>UTF-8</encoding>
-							<escapeWindowsPaths>true</escapeWindowsPaths>
-							<outputDirectory>${basedir}/../</outputDirectory>
-							<overwrite>true</overwrite>
-							<resources>
-								<resource>
-									<directory>${basedir}/src/main/resources/</directory>
-									<filtering>true</filtering>
-									<includes>
-										<include>**/settings.xml</include>
-									</includes>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>1.0</version>
-				<executions>
-					<execution>
-						<id>the-repository-exists</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>enforce</goal>
-						</goals>
-						<configuration>
-							<rules>
-								<requireFilesExist>
-									<files>
-										<file>${eap6.enterprise.repository.dir}</file>
-									</files>
-									<message>EAP6 Enterprise Repository must exist. Please unzip the file first.</message>
-								</requireFilesExist>
-								<requireFilesExist>
-									<files>
-										<file>${wfk2.enterprise.repository.dir}</file>
-									</files>
-									<message>WFK2 Enterprise Repository must exist. Please unzip the file first</message>
-								</requireFilesExist>
-							</rules>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- Ant plugin should be used to unzip the zips there -->
-		</plugins>
-	</build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <id>generate-maven-settings</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                            <escapeWindowsPaths>true</escapeWindowsPaths>
+                            <outputDirectory>${basedir}/../</outputDirectory>
+                            <overwrite>true</overwrite>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/src/main/resources/</directory>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>**/settings.xml</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <id>repository-zip-exist</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireFilesExist>
+                                    <files>
+                                        <file>${eap6.enterprise.repository.zip}</file>
+                                    </files>
+                                    <message>EAP6 Enterprise Repository Zip must exist. Please download the file first.</message>
+                                </requireFilesExist>
+                                <requireFilesExist>
+                                    <files>
+                                        <file>${wfk2.enterprise.repository.zip}</file>
+                                    </files>
+                                    <message>WFK2 Enterprise Repository Zip must exist. Please download the file first.</message>
+                                </requireFilesExist>
+                            </rules>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>repository-dirs-exist</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireFilesExist>
+                                    <files>
+                                        <file>${eap6.enterprise.repository.dir}</file>
+                                    </files>
+                                    <message>EAP6 Enterprise Repository must exist. Please unzip the file first.</message>
+                                </requireFilesExist>
+                                <requireFilesExist>
+                                    <files>
+                                        <file>${wfk2.enterprise.repository.dir}</file>
+                                    </files>
+                                    <message>WFK2 Enterprise Repository must exist. Please unzip the file first</message>
+                                </requireFilesExist>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>remove-wfk-repository</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <target name="remove-wfk-repository">
+                                <echo>Removing WFK 2 Enterprise Maven Repository from ${wfk2.enterprise.repository.dir}</echo>
+                                <delete dir="${wfk2.enterprise.repository.dir}" quiet="true" />
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>remove-eap-repository</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <target name="remove-eap-repository">
+                                <echo>Removing EAP 6 Enterprise Maven Repository at ${eap6.enterprise.repository.dir}</echo>
+                                <delete dir="${eap6.enterprise.repository.dir}" quiet="true" />
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>unzip-wfk-artifacts</id>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <target name="unzip-wfk-repository">
+                                <echo>Unzipping WFK 2 Enterprise Maven Repository into ${basedir}</echo>
+                                <unzip src="${wfk2.enterprise.repository.zip}" dest="${basedir}" />
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>unzip-eap-artifacts</id>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <target name="unzip-eap-repository">
+                                <echo>Extracting EAP 6 Enterprise Maven Repository into ${basedir}</echo>
+                                <unzip src="${eap6.enterprise.repository.zip}" dest="${basedir}" />
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
